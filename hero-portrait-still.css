@@ -1,0 +1,41 @@
+/* Full transparent portrait overlaps the lower title while keeping both boots inside the hero. */
+.hero.hero-with-still{--portrait-overlap:clamp(72px,7.2vw,112px);--portrait-bottom-bleed:106px;--intro-base-min-height:880px;height:100svh;min-height:880px;max-height:1100px}
+.hero.hero-with-still:is([data-intro-state=loading],[data-intro-state=playing],[data-intro-state=settling]){min-height:max(var(--intro-base-min-height),calc(var(--intro-safe-top,96px) + var(--intro-film-height,56.25vw) + var(--intro-safe-bottom,96px)));max-height:none}
+.hero-with-still .hero-content{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:max-content minmax(0,1fr) max-content;gap:20px;padding:98px var(--gutter) 98px}
+.hero-with-still .hero-heading-wrap{position:static;inset:auto;overflow:visible;min-width:0;width:100%;z-index:1}
+
+.hero-still{position:relative;isolation:isolate;justify-self:center;width:100%;height:calc(100% + var(--portrait-overlap) + var(--portrait-bottom-bleed));margin-top:calc(-1 * var(--portrait-overlap));margin-bottom:calc(-1 * var(--portrait-bottom-bleed));min-height:0;max-width:1600px;overflow:visible;background:transparent;z-index:2;pointer-events:none}
+.hero-still-image{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center;pointer-events:none;filter:saturate(.72) contrast(1.025) brightness(.98) drop-shadow(0 14px 24px #0003)}
+
+.hero-with-still .hero-bottom{z-index:3;position:static;inset:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.hero-with-still .hero-introduction{max-width:360px;padding-bottom:0}
+.hero-with-still .hero-description{font-size:clamp(16px,1.3vw,20px);line-height:1.65}
+
+.hero-with-still .hero-utilities{gap:14px;bottom:34px}
+
+@media(max-width:1100px) and (min-width:768px){.hero-with-still .hero-content{padding-top:98px;padding-bottom:98px;gap:18px}.hero.hero-with-still{--intro-base-min-height:840px;min-height:840px}}
+/* Let the portrait use the taller fullscreen canvas as the title grows with width. */
+@media(min-width:1440px){
+ .hero.hero-with-still{--portrait-overlap:max(112px,calc(15.5vw - 80px));max-height:none}
+ .hero-still{max-width:none;transform:translateY(clamp(72px,5vw,96px))}
+}
+@media(max-width:767px){
+ .hero.hero-with-still{--portrait-overlap:clamp(40px,12vw,58px);--portrait-bottom-bleed:0px;--intro-base-min-height:560px;height:auto;min-height:0;max-height:none}
+ .hero-with-still .hero-content{position:relative;inset:auto;padding:88px 0 108px;grid-template-rows:max-content max-content max-content;gap:26px}
+ .hero-with-still .hero-heading-wrap{margin-inline:var(--gutter);width:auto}
+
+ .hero-still{width:100%;height:auto;aspect-ratio:1672/941;max-width:none;margin-bottom:0}
+ .hero-with-still .hero-bottom{margin-inline:var(--gutter);gap:14px;min-height:95px}
+ .hero-with-still .hero-introduction{max-width:185px;padding-bottom:0}
+ .hero-with-still .hero-description{font-size:14px;line-height:1.7}
+ .hero-with-still .hero-description>span{font-size:10px;margin-top:5px}
+ .hero-with-still .hero-bottom>.button{margin:0 0 2px;padding-inline:23px;flex:none}
+ .hero-with-still .hero-utilities{bottom:30px;gap:12px;right:var(--gutter);flex-wrap:wrap}
+
+
+}
+@media(max-width:359px){.hero-with-still .hero-description{font-size:12px}.hero-with-still .hero-bottom>.button{padding-inline:18px;font-size:11px}.hero-with-still .hero-utilities{gap:10px}}
+
+/* Transparent source keeps the portrait in front of the title in both themes. */
+
+.hero-still-image{mix-blend-mode:normal}

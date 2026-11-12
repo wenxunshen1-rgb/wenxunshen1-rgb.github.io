@@ -1,0 +1,9 @@
+3D illustration source: MotionSites AI, 3D Jack Portfolio template selected by the site owner.
+Template: https://motionsites.ai/?prompt=3d-jack-portfolio-hero
+The template's linked Figma illustration files were resized and encoded as local WebP assets.
+The character is a decorative template illustration, separate from Sean's configurable personal photo.
+
+Kanit font source: Google Fonts, https://fonts.google.com/specimen/Kanit
+Font license: SIL Open Font License, included in OFL.txt.
+
+Existing arrow and audio icons: Tabler Icons, MIT license in scripts/vendor-licenses/.

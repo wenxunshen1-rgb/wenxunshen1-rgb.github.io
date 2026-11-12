@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0c0c0c" />
+    <meta name="description" content="Sean 的创意设计作品集：活动项目案例、展厅空间氛围布置与品牌设计。" />
+    <title>Sean · 个人作品集</title>
+    <link rel="icon" href="./favicon.svg?v=sean" type="image/svg+xml" />
+    <link rel="preload" href="./assets/jack/kanit-900.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="./assets/sean-hero-still/sean-reach-cat-full-v1.webp" as="image" fetchpriority="high" />
+    <link rel="stylesheet" href="./jack.css?v=b5be75c074c5" />
+    <link rel="stylesheet" href="./hero-portrait-still.css?v=18d5d8002f38" />
+    <link rel="stylesheet" href="./hero-tools.css?v=4982e552e25e" />
+    <link rel="stylesheet" href="./cbme-gallery.css?v=d0da2992e342" />
+    <link rel="stylesheet" href="./photo-gallery.css?v=1c2d3b3125e9" />
+    <script src="./content.js?v=f0cd9ba1a2d1" defer></script>
+    <script src="./reel-artwork.js?v=c534c7947d68" defer></script>
+    <script src="./gallery-numbering.js?v=7aba857d3b40" defer></script>
+    <script src="./app.js?v=6346f5ae1dec" defer></script>
+    <script src="./reel-motion.js?v=4312487b0b1b" defer></script>
+    <script src="./hero-intro.js?v=a560807b61a8" defer></script>
+    <script src="./hero-tools.js?v=ed6c0e2394f9" defer></script>
+    <script src="./jack-motion.js?v=b4ce02d852fe" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#work">跳至作品</a>
+    <main>
+      <section class="hero hero-with-still" id="home" aria-labelledby="hero-title">
+        <header class="site-header">
+          <nav class="main-nav" aria-label="主导航">
+            <a href="#work" data-nav="work" aria-label="作品">作  品</a>
+            <a href="#about" data-nav="about">关于我</a>
+            <a href="#categories" data-nav="categories">展示方向</a>
+            <a href="#contact" data-nav="contact" aria-label="联系">联  系</a>
+          </nav>
+        </header>
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <video class="hero-film" id="hero-film" muted playsinline preload="metadata" poster="./assets/hero-intro-sean-v7-still.jpg" aria-hidden="true" tabindex="-1"><source src="./assets/hero-intro-sean-v7.mp4" type="video/mp4" /></video>
+        <div class="hero-content">
+          <div class="hero-heading-wrap"><h1 id="hero-title" class="metal-heading">HI, I'M <span data-profile="name">Sean</span></h1></div>
+          <div class="hero-still" id="hero-still">
+            <img class="hero-still-image" src="./assets/sean-hero-still/sean-reach-cat-full-v1.webp" width="1672" height="941" alt="Sean与肩上的猫咪，蹲下向镜头伸手" fetchpriority="high" decoding="async" />
+            <div class="hero-tools" aria-hidden="true">
+              <span class="hero-tool tool-photoshop"><img src="./assets/hero-tools-20261110/photoshop.webp" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
+              <span class="hero-tool tool-illustrator"><img src="./assets/hero-tools-20261110/illustrator.webp" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
+              <span class="hero-tool tool-codex"><img src="./assets/hero-tools-20261110/codex.webp" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
+              <span class="hero-tool tool-claude"><img src="./assets/hero-tools-20261110/claude-code.webp" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
+            </div>
+          </div>
+          <div class="hero-bottom">
+            <div class="hero-introduction">
+              <p class="hero-description">让创意发生，<br />让体验被看见。<br /><span>用设计，连接人与体验。</span></p>
+            </div>
+            <a class="button button-gradient magnet-button" href="#contact">联系我 <span class="arrow-icon" aria-hidden="true"></span></a>
+          </div>
+        </div>
+        <div class="hero-utilities">
+          <button class="music-toggle" id="music-toggle" type="button" aria-pressed="false" aria-label="开启背景音乐" title="开启背景音乐"><span class="music-icon" aria-hidden="true"></span></button>
+          <button class="theme-toggle theme-toggle-hero" type="button" aria-pressed="false" aria-label="切换为浅色配色" title="切换为浅色配色"><span class="theme-icon" aria-hidden="true"></span><span class="theme-label sr-only">浅色</span></button>
+          <div class="intro-controls"><button type="button" id="intro-skip" hidden>跳过开场 <span aria-hidden="true">↗</span></button><button type="button" id="intro-replay" hidden>重播开场 <span aria-hidden="true">↻</span></button></div>
+        </div>
+        <p class="sr-only" id="intro-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="portfolio-reel" id="portfolio-reel" aria-label="作品方向预览">
+        <div class="marquee-window"><div class="marquee-row" id="marquee-top"></div></div>
+        <div class="marquee-window"><div class="marquee-row marquee-reverse" id="marquee-bottom"></div></div>
+      </section>
+
+      <section class="about-section section-wrap" id="about" aria-labelledby="about-title">
+        <img class="about-object object-moon" src="./assets/jack/moon.webp" width="440" height="440" alt="" aria-hidden="true" loading="lazy" />
+        <img class="about-object object-lego" src="./assets/jack/lego.webp" width="440" height="440" alt="" aria-hidden="true" loading="lazy" />
+        <img class="about-object object-orbit" src="./assets/jack/orbit.webp" width="440" height="440" alt="" aria-hidden="true" loading="lazy" />
+        <img class="about-object object-forms" src="./assets/jack/forms.webp" width="440" height="440" alt="" aria-hidden="true" loading="lazy" />
+        <div class="about-copy">
+          <h2 class="section-title metal-heading reveal" id="about-title">ABOUT ME</h2>
+          <p class="about-greeting reveal" data-profile="greeting">Hi，我是来自苏州的沈文珣，也可以叫我Sean，</p>
+          <p class="about-description" data-profile="bio">7年视觉平面设计经验；很高兴和你遇见。</p>
+          <ol class="about-experience reveal" id="about-experience" aria-label="工作经历"></ol>
+          <p class="about-closing reveal" data-profile="bioNote">未来由你我共创</p>
+          <button class="about-portrait reveal" type="button" aria-label="查看个人照片大图" aria-haspopup="dialog" aria-controls="portrait-dialog" disabled><span data-profile="initials">Sean</span><span class="portrait-caption">个人照片展示位</span></button>
+          <a class="button button-gradient reveal" href="#contact">联系我 <span class="arrow-icon" aria-hidden="true"></span></a>
+        </div>
+      </section>
+
+      <section class="categories-section section-wrap" id="categories" aria-labelledby="categories-title">
+        <h2 class="section-title reveal" id="categories-title">WHAT I DO</h2>
+        <div class="category-index">
+          <a class="category-row reveal" href="#work" data-category-link="events"><span class="category-number" aria-hidden="true">01</span><div><h3>活动项目案例</h3><p>从一个好想法，到一场被记住的体验。</p></div><span class="arrow-icon" aria-hidden="true"></span></a>
+          <a class="category-row reveal" href="#work" data-category-link="spaces"><span class="category-number" aria-hidden="true">02</span><div><h3>展厅空间氛围布置</h3><p>用空间讲述故事，让设计可以被走进。</p></div><span class="arrow-icon" aria-hidden="true"></span></a>
+          <a class="category-row reveal" href="#work" data-category-link="branding"><span class="category-number" aria-hidden="true">03</span><div><h3>品牌设计</h3><p>从视觉符号，到完整的品牌表达。</p></div><span class="arrow-icon" aria-hidden="true"></span></a>
+        </div>
+      </section>
+
+      <section class="work-section section-wrap" id="work" aria-labelledby="work-title">
+        <div class="section-heading"><h2 id="work-title" class="section-title metal-heading reveal">PROJECTS</h2><p class="section-description reveal">每一个想法，都有自己的现场。</p></div>
+        <div class="work-toolbar"><div class="filters" role="group" aria-label="作品分类"><button type="button" class="filter active" data-filter="all" aria-pressed="true">全部作品 <span>33</span></button><button type="button" class="filter" data-filter="events" aria-pressed="false">活动项目案例 <span>10</span></button><button type="button" class="filter" data-filter="spaces" aria-pressed="false">展厅空间氛围布置 <span>14</span></button><button type="button" class="filter" data-filter="branding" aria-pressed="false">品牌设计 <span>09</span></button></div></div>
+        <p id="filter-status" class="sr-only" role="status" aria-live="polite"></p>
+        <div class="project-grid" id="project-grid"></div>
+        <div class="work-empty" id="work-empty" hidden><p>这个分类的作品正在整理中。</p><button type="button" class="text-button" id="reset-filter">查看全部作品 ↗</button></div>
+        <p class="framework-note">更多活动作品，持续整理中。</p>
+        <noscript><p class="noscript-note">请启用 JavaScript 查看分类作品卡片。作品分为活动项目案例、展厅空间氛围布置、品牌设计。</p></noscript>
+      </section>
+
+      <section class="contact-section section-wrap" id="contact" aria-labelledby="contact-title">
+        <h2 class="section-title metal-heading reveal" id="contact-title">LET'S CREATE.</h2>
+        <p class="contact-description reveal">下一个好想法，从一句你好开始。</p>
+        <div class="contact-methods reveal" id="contact-methods"></div>
+        <p class="contact-note reveal" id="contact-note">邮箱与微信待补充</p>
+      </section>
+    </main>
+
+    <footer class="site-footer section-wrap">
+      <a class="wordmark footer-brand" href="#home" aria-label="Sean · 个人作品集首页"><span class="wordmark-symbol" aria-hidden="true"><img src="./assets/sean-smile.svg" width="24" height="24" alt="" /></span><span data-profile="wordmark">Sean</span></a>
+      <p>好的设计，让想法发生。</p>
+      <div class="footer-actions"><button class="theme-toggle" type="button" aria-pressed="false" aria-label="切换为浅色配色"><span class="theme-icon" aria-hidden="true"></span><span class="theme-label">浅色</span></button><a href="#home" class="back-top">回到顶部 <span aria-hidden="true">↑</span></a></div>
+    </footer>
+
+    <dialog class="portrait-dialog" id="portrait-dialog" aria-labelledby="portrait-dialog-title"><div class="portrait-dialog-toolbar"><h2 id="portrait-dialog-title">个人照片</h2><button type="button" class="portrait-dialog-close" aria-label="关闭照片大图" autofocus>关闭 <span aria-hidden="true">×</span></button></div><img alt="" decoding="async" /></dialog>
+    <dialog class="project-dialog" id="project-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span id="dialog-category"></span><button type="button" class="dialog-close" aria-label="关闭案例详情">关闭 <span aria-hidden="true">×</span></button></div><div class="dialog-scroll"><p class="dialog-meta" id="dialog-meta"></p><h2 id="dialog-title"></h2><p id="dialog-summary"></p><div class="dialog-cover" id="dialog-cover"></div><div class="project-facts" id="project-facts"></div><div id="dialog-body"></div><div class="dialog-gallery" id="dialog-gallery"></div></div></dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <audio id="background-music" loop preload="none" aria-hidden="true"><source src="./assets/sean-motion-theme.mp3" type="audio/mpeg" /></audio>
+    <p class="sr-only" id="music-status" role="status" aria-live="polite"></p>
+    <script src="./background-music.js?v=e75d08da2ce7" defer></script>
+  </body>
+</html>

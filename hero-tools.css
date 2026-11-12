@@ -1,0 +1,27 @@
+/* The four glass tools radiate from the reaching hand, in the portrait's own coordinates. */
+.hero-tools,.hero-tool-trails{position:absolute;left:50%;top:50%;width:var(--tools-width,0px);height:var(--tools-height,0px);transform:translate(-50%,-50%);pointer-events:none}
+.hero-tool-trails{z-index:0}
+.hero-still-image{z-index:1}
+.hero-tools{z-index:2}
+.hero-tools:not([data-ready]),.hero-tool-trails:not([data-ready]){visibility:hidden}
+.hero:not([data-intro-state=complete]) :is(.hero-tools,.hero-tool-trails){visibility:hidden}
+.hero-tool{position:absolute;left:clamp(calc(12px - var(--scene-screen-left,0px) + var(--tool-size)/2),var(--tool-x),calc(100vw - var(--scene-screen-left,0px) - 12px - var(--tool-size)/2));top:var(--tool-y);width:var(--tool-size);aspect-ratio:1;transform:translate(-50%,-50%) perspective(800px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) rotateZ(var(--tilt-z,0deg))}
+.hero-tool img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 9px 12px #0004);animation:tool-drift var(--drift-duration,8s) ease-in-out var(--drift-delay,0s) infinite alternate}
+.hero-tool-trail{position:absolute;inset:0;transform-origin:center}
+/* Short, diffuse color trails suggest motion without exposing repeated software marks. */
+.hero-tool-trail.trail-near{opacity:.08;translate:calc(var(--trail-near-x) * .42) calc(var(--trail-near-y) * .42);scale:.96;filter:blur(clamp(4px,.55vw,8px))}
+.hero-tool-trail.trail-far{opacity:.025;translate:calc(var(--trail-far-x) * .42) calc(var(--trail-far-y) * .42);scale:.90;filter:blur(clamp(7px,.85vw,12px))}
+.tool-photoshop{--tool-x:0%;--tool-y:22%;--tool-size:13.8%;--tilt-x:8deg;--tilt-y:-12deg;--tilt-z:-9deg;--drift-y:-5px;--drift-delay:-2s;--trail-near-x:38%;--trail-near-y:22%;--trail-far-x:74%;--trail-far-y:42%}
+.tool-illustrator{--tool-x:-3%;--tool-y:56%;--tool-size:12.4%;--tilt-x:-6deg;--tilt-y:16deg;--tilt-z:14deg;--drift-y:6px;--drift-duration:9s;--drift-delay:-6s;--trail-near-x:42%;--trail-near-y:-18%;--trail-far-x:82%;--trail-far-y:-36%}
+.tool-codex{--tool-x:14%;--tool-y:88%;--tool-size:10.2%;--tilt-x:12deg;--tilt-y:-14deg;--tilt-z:-13deg;--drift-y:4px;--drift-delay:-4s;--trail-near-x:23%;--trail-near-y:-42%;--trail-far-x:46%;--trail-far-y:-86%}
+.tool-claude{--tool-x:40%;--tool-y:15%;--tool-size:8.6%;--tilt-x:-12deg;--tilt-y:12deg;--tilt-z:11deg;--drift-y:-4px;--drift-duration:10s;--drift-delay:-1s;--trail-near-x:-18%;--trail-near-y:42%;--trail-far-x:-36%;--trail-far-y:84%}
+@keyframes tool-drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,var(--drift-y),0)}}
+.hero:not([data-intro-state=complete]) .hero-tool img{animation-play-state:paused}
+@media(min-width:768px) and (max-width:1100px){.tool-photoshop{--tool-y:20%}}
+@media(max-width:767px){
+ .tool-photoshop{--tool-x:8%;--tool-y:20%;--tool-size:13%;--tilt-z:-8deg;--drift-y:-2px}
+ .tool-illustrator{--tool-x:7.3%;--tool-y:89%;--tool-size:12%;--tilt-z:12deg;--drift-y:2px;--trail-near-y:-24%;--trail-far-y:-46%}
+ .tool-codex{--tool-x:25.5%;--tool-y:110%;--tool-size:10.8%;--tilt-z:-12deg;--drift-y:2px}
+ .tool-claude{--tool-x:44%;--tool-y:106%;--tool-size:10%;--tilt-z:10deg;--drift-y:-2px;--trail-near-x:-17%;--trail-near-y:-44%;--trail-far-x:-35%;--trail-far-y:-86%}
+}
+@media(prefers-reduced-motion:reduce){.hero-tool img{animation:none}}

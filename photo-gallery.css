@@ -1,0 +1,8 @@
+/* Event photography: one centered reading column, without enlarging the 750px source photos. */
+.project-card[data-gallery-layout="photo-grid"] .project-info h3,
+#project-dialog:has(#dialog-gallery[data-layout="photo-grid"]) #dialog-title{text-wrap:balance}
+.dialog-gallery[data-layout="photo-grid"]{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:start;width:100%;max-width:750px;margin:30px auto 0}
+.dialog-gallery[data-layout="photo-grid"]>:is(.gallery-heading,.gallery-chapters,.gallery-wide){grid-column:1/-1}
+.dialog-gallery[data-layout="photo-grid"]>figure{width:100%;min-width:0;margin:0;justify-self:center}
+.dialog-gallery[data-layout="photo-grid"]>.gallery-heading{margin:8px 0 0}
+@media(max-width:767px){.dialog-gallery[data-layout="photo-grid"]{row-gap:22px}}
