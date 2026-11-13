@@ -104,6 +104,32 @@
       return null;
     }
   }
+  function loadQueuedImage(image) {
+    if (!image.dataset.imageSrc) return;
+    if (image.dataset.imageSrcset) image.srcset = image.dataset.imageSrcset;
+    image.src = image.dataset.imageSrc;
+    delete image.dataset.imageSrc;
+    delete image.dataset.imageSrcset;
+  }
+  const imageObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    for (const entry of entries) if (entry.isIntersecting) {
+      loadQueuedImage(entry.target);
+      imageObserver.unobserve(entry.target);
+    }
+  }, { rootMargin: '320px 260px' }) : null;
+  function queueDisplayImage(image, source, sizes) {
+    const variant = window.SEAN_IMAGE_VARIANTS?.[source];
+    image.sizes = sizes;
+    image.dataset.imageSrc = safeImage(variant?.large || source);
+    if (variant) image.dataset.imageSrcset = `${safeImage(variant.small)} 640w, ${safeImage(variant.large)} 1280w`;
+    image.loading = imageObserver ? 'eager' : 'lazy';
+    if (imageObserver) imageObserver.observe(image);
+    else loadQueuedImage(image);
+  }
+  window.addEventListener('pagehide', () => imageObserver?.disconnect());
+  window.addEventListener('pageshow', event => {
+    if (event.persisted) document.querySelectorAll('img[data-image-src]').forEach(image => imageObserver?.observe(image));
+  });
   function addCover(container, project, lazy = true) {
     const cardSource = lazy && project.cardImage;
     const imageSource = safeImage(cardSource || project.image);
@@ -112,13 +138,14 @@
       return;
     }
     const image = make("img");
-    image.src = imageSource;
+    if (lazy) queueDisplayImage(image, cardSource || project.image, container.classList.contains('reel-card') ? '(max-width: 767px) 70vw, 480px' : '(max-width: 767px) 100vw, 640px');
+    else image.src = imageSource;
     image.alt = project.title;
     const displaySize = cardSource ? project.cardImageSize : project.imageSize;
     if (displaySize?.every(value => Number.isFinite(value) && value > 0)) {
       [image.width, image.height] = displaySize;
     }
-    image.loading = lazy ? "lazy" : "eager";
+    if (!lazy) image.loading = "eager";
     image.decoding = "async";
     image.addEventListener("error", () => {
       image.remove();
@@ -139,9 +166,8 @@
   if (safeImage(profile.portrait)) {
     const portrait = document.querySelector(".about-portrait");
     const image = make("img");
-    image.src = safeImage(profile.portrait);
+    queueDisplayImage(image, './assets/web-variants-20261113/portrait-400.webp', '200px');
     image.alt = `${profile.name}的个人照片`;
-    image.loading = "eager";
     image.decoding = "async";
     const framing = profile.portraitFraming;
     if (framing && [framing.x, framing.y, framing.zoom].every(Number.isFinite)) {
@@ -155,10 +181,11 @@
       portrait.dataset.hasPhoto = "true";
       portrait.disabled = false;
     }, { once: true });
+    portrait.append(image);
     const photoDialog = document.querySelector("#portrait-dialog");
     const fullPhoto = photoDialog.querySelector("img");
     portrait.addEventListener("click", () => {
-      fullPhoto.src = image.src;
+      fullPhoto.src = safeImage(profile.portrait);
       fullPhoto.alt = image.alt;
       photoDialog.showModal();
       document.body.classList.add("dialog-open");
@@ -176,6 +203,7 @@
   }
 
   function renderProjects(filter = "all") {
+    grid.querySelectorAll('img[data-image-src]').forEach(image => imageObserver?.unobserve(image));
     const visible = projects.filter((project) => filter === "all" || project.category === filter);
     const fragment = document.createDocumentFragment();
     visible.forEach((project, index) => {
@@ -219,9 +247,8 @@
         const source = safeImage(typeof previewItem === "string" ? previewItem : previewItem?.src);
         if (source) {
           const preview = make("img");
-          preview.src = source;
+          queueDisplayImage(preview, typeof previewItem === 'string' ? previewItem : previewItem.src, '(max-width: 767px) 50vw, 640px');
           preview.alt = "";
-          preview.loading = "lazy";
           preview.addEventListener("error", () => preview.remove(), { once: true });
           slot.append(preview);
         }

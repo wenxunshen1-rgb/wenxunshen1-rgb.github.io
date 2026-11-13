@@ -48,6 +48,11 @@
     if (document.activeElement === skip) replay.focus({ preventScroll: true });
   }
   async function play(manual = false) {
+    if (!manual && window.matchMedia("(max-width: 767px)").matches) {
+      finish("已显示首页，可选择播放开场");
+      replay.firstChild.textContent = "播放开场 ";
+      return;
+    }
     if (reducedMotion.matches && !manual) {
       finish("已显示静止首屏，可选择重播开场");
       return;
@@ -59,6 +64,12 @@
     skip.hidden = false;
     replay.hidden = true;
     requestFilmFit();
+    const source = video.querySelector('source');
+    if (!source.getAttribute('src')) {
+      source.src = source.dataset.src;
+      video.poster = video.dataset.poster;
+      video.load();
+    }
     video.muted = true;
     video.loop = false;
     if (video.readyState > 0) video.currentTime = 0;

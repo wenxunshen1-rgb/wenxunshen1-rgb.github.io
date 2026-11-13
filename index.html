@@ -8,19 +8,20 @@
     <meta name="description" content="Sean 的创意设计作品集：活动项目案例、展厅空间氛围布置与品牌设计。" />
     <title>Sean · 个人作品集</title>
     <link rel="icon" href="./favicon.svg?v=sean" type="image/svg+xml" />
-    <link rel="preload" href="./assets/jack/kanit-900.ttf" as="font" type="font/ttf" crossorigin />
-    <link rel="preload" href="./assets/sean-hero-still/sean-reach-cat-full-v1.webp" as="image" fetchpriority="high" />
-    <link rel="stylesheet" href="./jack.css?v=b5be75c074c5" />
+    <link rel="preload" href="./assets/jack/kanit-900.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./assets/web-variants-20261113/hero-800.webp" imagesrcset="./assets/web-variants-20261113/hero-800.webp 800w, ./assets/web-variants-20261113/hero-1280.webp 1280w, ./assets/sean-hero-still/sean-reach-cat-full-v1.webp 1672w" imagesizes="100vw" as="image" fetchpriority="high" />
+    <link rel="stylesheet" href="./jack.css?v=f3a803f58a0e" />
     <link rel="stylesheet" href="./hero-portrait-still.css?v=18d5d8002f38" />
     <link rel="stylesheet" href="./hero-tools.css?v=4982e552e25e" />
     <link rel="stylesheet" href="./cbme-gallery.css?v=d0da2992e342" />
     <link rel="stylesheet" href="./photo-gallery.css?v=1c2d3b3125e9" />
     <script src="./content.js?v=f0cd9ba1a2d1" defer></script>
     <script src="./reel-artwork.js?v=c534c7947d68" defer></script>
+    <script src="./image-variants.js?v=65a8c5a14a49" defer></script>
     <script src="./gallery-numbering.js?v=7aba857d3b40" defer></script>
-    <script src="./app.js?v=6346f5ae1dec" defer></script>
+    <script src="./app.js?v=e1e9052bad14" defer></script>
     <script src="./reel-motion.js?v=4312487b0b1b" defer></script>
-    <script src="./hero-intro.js?v=a560807b61a8" defer></script>
+    <script src="./hero-intro.js?v=15fdfaed3fa5" defer></script>
     <script src="./hero-tools.js?v=ed6c0e2394f9" defer></script>
     <script src="./jack-motion.js?v=b4ce02d852fe" defer></script>
   </head>
@@ -37,16 +38,16 @@
           </nav>
         </header>
         <canvas id="hero-canvas" aria-hidden="true"></canvas>
-        <video class="hero-film" id="hero-film" muted playsinline preload="metadata" poster="./assets/hero-intro-sean-v7-still.jpg" aria-hidden="true" tabindex="-1"><source src="./assets/hero-intro-sean-v7.mp4" type="video/mp4" /></video>
+        <video class="hero-film" id="hero-film" muted playsinline preload="none" data-poster="./assets/hero-intro-sean-v7-still.jpg" aria-hidden="true" tabindex="-1"><source data-src="./assets/hero-intro-sean-v7.mp4" type="video/mp4" /></video>
         <div class="hero-content">
           <div class="hero-heading-wrap"><h1 id="hero-title" class="metal-heading">HI, I'M <span data-profile="name">Sean</span></h1></div>
           <div class="hero-still" id="hero-still">
-            <img class="hero-still-image" src="./assets/sean-hero-still/sean-reach-cat-full-v1.webp" width="1672" height="941" alt="Sean与肩上的猫咪，蹲下向镜头伸手" fetchpriority="high" decoding="async" />
+            <img class="hero-still-image" src="./assets/web-variants-20261113/hero-800.webp" srcset="./assets/web-variants-20261113/hero-800.webp 800w, ./assets/web-variants-20261113/hero-1280.webp 1280w, ./assets/sean-hero-still/sean-reach-cat-full-v1.webp 1672w" sizes="100vw" width="1672" height="941" alt="Sean与肩上的猫咪，蹲下向镜头伸手" fetchpriority="high" decoding="async" />
             <div class="hero-tools" aria-hidden="true">
-              <span class="hero-tool tool-photoshop"><img src="./assets/hero-tools-20261110/photoshop.webp" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
-              <span class="hero-tool tool-illustrator"><img src="./assets/hero-tools-20261110/illustrator.webp" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
-              <span class="hero-tool tool-codex"><img src="./assets/hero-tools-20261110/codex.webp" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
-              <span class="hero-tool tool-claude"><img src="./assets/hero-tools-20261110/claude-code.webp" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
+              <span class="hero-tool tool-photoshop"><img src="./assets/web-variants-20261113/photoshop-192.webp" srcset="./assets/web-variants-20261113/photoshop-192.webp 192w, ./assets/hero-tools-20261110/photoshop.webp 512w" sizes="(max-width: 767px) 64px, 128px" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
+              <span class="hero-tool tool-illustrator"><img src="./assets/web-variants-20261113/illustrator-192.webp" srcset="./assets/web-variants-20261113/illustrator-192.webp 192w, ./assets/hero-tools-20261110/illustrator.webp 512w" sizes="(max-width: 767px) 64px, 128px" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
+              <span class="hero-tool tool-codex"><img src="./assets/web-variants-20261113/codex-192.webp" srcset="./assets/web-variants-20261113/codex-192.webp 192w, ./assets/hero-tools-20261110/codex.webp 512w" sizes="(max-width: 767px) 64px, 128px" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
+              <span class="hero-tool tool-claude"><img src="./assets/web-variants-20261113/claude-code-192.webp" srcset="./assets/web-variants-20261113/claude-code-192.webp 192w, ./assets/hero-tools-20261110/claude-code.webp 512w" sizes="(max-width: 767px) 64px, 128px" width="512" height="512" alt="" decoding="async" fetchpriority="low" /></span>
             </div>
           </div>
           <div class="hero-bottom">
