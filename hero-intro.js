@@ -104,5 +104,7 @@
       requestFilmFit();finish();
     }
   });
-  play();
+  // Keep the hero visible immediately. The intro video is optional, and only downloads on request.
+  finish("首页已显示，可选择播放开场");
+  replay.firstChild.textContent = "播放开场 ";
 })();
