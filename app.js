@@ -116,7 +116,7 @@
       loadQueuedImage(entry.target);
       imageObserver.unobserve(entry.target);
     }
-  }, { rootMargin: '320px 260px' }) : null;
+  }, { rootMargin: '140px 100px' }) : null;
   function queueDisplayImage(image, source, sizes) {
     const variant = window.SEAN_IMAGE_VARIANTS?.[source];
     image.sizes = sizes;
@@ -279,27 +279,41 @@
   document.querySelector("#reset-filter").addEventListener("click", () => renderProjects());
   renderProjects();
 
-  // Keep completed work in the preview; reserved slots remain in the case list.
-  const reelProjects = [...projects, ...(Array.isArray(content.reelOnly) ? content.reelOnly : [])].filter(project => !project.placeholder && safeImage(project.cardImage || project.image));
-  for (const [rowIndex, selector] of ["#marquee-top", "#marquee-bottom"].entries()) {
-    const row = document.querySelector(selector);
-    const items = reelProjects.filter((_, index) => index % 2 === rowIndex);
-    row.dataset.unitCount = String(items.length);
-    // Center the leading three artworks in the middle copy at every viewport width.
-    row.style.setProperty("--reel-focus-index", items.length + (Math.min(3, items.length) - 1) / 2);
-    for (let copy = 0; copy < 3; copy++) {
-      for (const project of items) {
-        const tile = make("div", "reel-card");
-        tile.dataset.projectId = project.id;
-        tile.dataset.reelCopy = String(copy);
-        tile.classList.toggle("reel-card-real", !project.placeholder);
-        applyCardGlow(tile, project);
-        tile.setAttribute("aria-hidden", "true");
-        const reelArtwork = window.SEAN_REEL_ARTWORK?.[project.id];
-        addCover(tile, reelArtwork ? { ...project, cardImage: reelArtwork.src, cardImageSize: reelArtwork.size } : project);
-        row.append(tile);
+  // Build the moving artwork reel shortly before it enters view, not during first paint.
+  function buildReel() {
+    // Keep completed work in the preview; reserved slots remain in the case list.
+    const reelProjects = [...projects, ...(Array.isArray(content.reelOnly) ? content.reelOnly : [])].filter(project => !project.placeholder && safeImage(project.cardImage || project.image));
+    for (const [rowIndex, selector] of ["#marquee-top", "#marquee-bottom"].entries()) {
+      const row = document.querySelector(selector);
+      const items = reelProjects.filter((_, index) => index % 2 === rowIndex);
+      row.dataset.unitCount = String(items.length);
+      // Center the leading three artworks in the middle copy at every viewport width.
+      row.style.setProperty("--reel-focus-index", items.length + (Math.min(3, items.length) - 1) / 2);
+      for (let copy = 0; copy < 3; copy++) {
+        for (const project of items) {
+          const tile = make("div", "reel-card");
+          tile.dataset.projectId = project.id;
+          tile.dataset.reelCopy = String(copy);
+          tile.classList.toggle("reel-card-real", !project.placeholder);
+          applyCardGlow(tile, project);
+          tile.setAttribute("aria-hidden", "true");
+          const reelArtwork = window.SEAN_REEL_ARTWORK?.[project.id];
+          addCover(tile, reelArtwork ? { ...project, cardImage: reelArtwork.src, cardImageSize: reelArtwork.size } : project);
+          row.append(tile);
+        }
       }
     }
+  }
+  const reelSection = document.querySelector("#portfolio-reel");
+  if (reelSection && "IntersectionObserver" in window) {
+    const reelInitObserver = new IntersectionObserver((entries, observer) => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      observer.disconnect();
+      buildReel();
+    }, { rootMargin: "200px 0px" });
+    reelInitObserver.observe(reelSection);
+  } else {
+    buildReel();
   }
   document.querySelectorAll("[data-category-link]").forEach((link) => {
     link.addEventListener("click", () => renderProjects(link.dataset.categoryLink));
